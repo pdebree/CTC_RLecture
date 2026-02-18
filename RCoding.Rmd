@@ -1,0 +1,823 @@
+---
+title: "Intro to R Coding Lecture"
+subtitle: "Cracking the Code - Spring 2026"
+output: pdf_document
+---
+
+# R Coding and RStudio 
+
+## What are R and RStudio?
+
+R is a programming language developed in 1993 specifically for statistical computing.
+Coding languages have rules just like English or Spanish or Arabic.
+
+If R is the language in which we write our code in RStudio is the workbook where we do 
+our exercises. It let’s us organize the files (.Rmd or .R files) and keep track of our analysis.
+There are a few different “integrated development environments” (IDEs) where you can do your analysis. 
+RStudio is by far the most popular.
+
+
+## Logistics of Using RStudio 
+
+Four "Panes" in RStudio \
+- Top Left - Source (The instructions you have for R) \
+- Top Right - Environment (What you have already told R, variables you have assigned) \
+- Bottom Left - Console/Terminal (What R has done to this point - the "executions" of the code) 
+    Note: The console shows what you are doing in RStudio, the terminal is not in R. 
+            (We won't use the terminal in this course, so you can ignore it). \
+- Bottom Right - Files (Let's you see what is on your computer). \
+
+
+
+
+
+
+
+
+
+
+
+# Set Up
+
+Our computer saves files in folders, and we have folders within folders. In coding we  call a folder a "directory". R is very sensitive to your "working directory", this is basically the folder (directory) on your computer that RStudio is pointing at. If you are not in the right folder, RStudio won't know how to access files (or data!).
+
+
+To see what your current working directory is type `getwd()` into the console. To change the current working directory use the `setwd()` function, it could look something like: \
+`setwd("/Users/pippidebree/Documents/nyu/CTC/RLecture")`
+
+
+## Opening a Project 
+
+Open a Project - File > New Project
+
+A project is great way to make sure that you are always in the right directory when you are doing 
+your work. But you have to make sure to open the project!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Rmd Files
+
+What kind of file is this? \
+`.Rmd` (R Markdown File) 
+
+A `.Rmd` files have  "blocks" of code that we will "execute" or "run". (If you are interfacing with this file as a .Rmd file, you can run the blocks of code by pressing the green arrow in the top right corner of each block. Or you can use the shortcut Command+Shift+Enter to run the whole block). 
+
+
+```{r}
+# This is a block where we can execute code
+# <- The hash symbol tells R not to execute any code on this line only 
+
+# Below is a line of code 
+variable <- 1 
+```
+
+
+How do I add in a chunk (where we keep code in .Rmd file)? \
+Mac: Option + Command + i \
+Windows: Ctrl + Alt + i \
+
+There are a lot of shortcuts in R to see them. \
+Mac: Option + Shift + k  \
+Windows: Alt + Shift + k  \
+
+
+Note: Within a code block there are some lines that have a `#` sign before them. A line like this is called a "comment". R does not run this as a line of code, instead we can keep track of what a line of code does within the block (It is very helpful to comment your code - it helps other people understand what you are doing and it can help you if you look back at your work!)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Knitting: \
+`.Rmd` files are great because they let us create really nice outputs where we can write about our analysis and have the code 
+integrated into the output. You just press the "Knit" button at the top! Note: your document will not knit if there is code that will not run! e.g. odd <- # R doesn't know what to do with this.  
+
+
+Other types of files: \
+- `.R` - This only has code (and comments), nothing else. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Recap 
+
+That was a lot of logistics! 
+
+R is a language. \
+RStudio is the "workbook" where we keep code in R.\
+We need to make a "Project" for our analysis so that we can keep track of our files and where we are on our Computer. \
+We need to open a `.Rmd` file in which we will do our work. We write code in the "chunks". \
+We can "knit" a `.Rmd` file and look at the resulting pdf. \
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Let's get Coding! 
+
+
+## What is a variable? 
+
+A variable is a named location where some information is stored. We "assign" a variable using the `<-` symbol.
+
+Shortcuts for `<-` \
+Mac: Option > - \
+Windows: Alt > - \
+
+
+```{r}
+# Numeric Variables
+odd_number <- 0
+even_number <- 0
+
+# String Variables
+color <- ""
+
+# Vector Variables - Like Lists of data 
+ages <- c(18, 19, 19, 20, 18, 18, 21)
+
+```
+
+
+Run ONE line of code: \
+  Mac: Command + Return \
+  Windows: Ctrl + Enter \
+  
+Run a whole chunk: \
+  Click the green arrow or \
+    Mac: Command + Shift + Enter \
+    Windows: Ctrl + Shift + Enter \
+  
+
+Note: You can run lines of code in the console itself. But then you have a record of that code! (e.g. odd <- *something else*)
+
+
+Vectors are lists of information. 
+
+```{r}
+# Use c() concatenate function to make vectors 
+ages <- c(12, 16, 9, 13, 5, 8, 17, 5, 6)
+
+```
+
+
+Most of the time when we think about data we can think of it as a list of lists in some way.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Arithmetic Operators
+
+In many ways, R is a math language so it basically has a built in calculator.
+
+Here are some of the math symbols but in R!
+
++, - are the same \
+* : multiply \
+/ : divide \
+** : to the power of (e.g. 2**3 = 8) \
+
+We can use these arithmetic operators on numbers or on assigned variables. 
+
+```{r}
+# We can use R as a calculator with numbers directly:
+1 + 1
+2*3 
+2**3 
+
+# Multiply two numberic variables together 
+total_number <- odd_number*even_number
+
+# Doesn't work! It's a language with rules!
+#total_number <- color*odd_number
+
+# Can do operations to a vector as well: 
+ages*2
+```
+
+
+
+## Relational Operators
+
+It is important to be able to check whether variables have a specific value. This is especially important when we have a lot of data and want to consider a certain subset of that data. R has a few different operators that we use to do this
+
+
+`==` : Equal to. Checks if two values are the same. (Different from <- which are used for assignment). \
+`!=` : Not equal to. Checks if two values are different. \ 
+`>` : Greater than. Checks if the left operand is greater than the right operand. \ 
+`<` : Less than. Checks if the left operand is less than the right operand. \ 
+`>=` : Greater than or equal to. Checks if the left operand is greater than or equal to the right operand.
+`<=` : Less than or equal to. Checks if the left operand is less than or equal to the right operand
+
+```{r}
+
+# Comparing var
+#color == "black"
+
+#odd_number > 0 
+
+# We can also compare two variables
+#odd_number > even_number
+
+#odd_number <= even_number
+
+# We can also apply this thinking to a list
+ages == 18
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+## What is a function?
+
+A function takes in a variable (or variables) and does something to/with it. It can be a mathematical function, like mean() or a function that does something to the variable
+
+```{r}
+# The print *function* prints the value of the total variable 
+print(total_number)
+print(1) # Note: This is not a variable assignment so the *Environment* doesn't change. 
+
+
+# Mean of the ages vector
+mean(ages)
+
+# Standard deviation of the ages vector 
+sd(ages)
+
+# Can assign the outcome of a function to a variable itself.
+mean_ages <- mean(ages)
+
+```
+
+Really what we are going to be doing is using variables with functions! There are different types of variables as shown below, but mainly we are going to be using *data frames* to handle our data and apply functions to that data. 
+
+
+
+
+
+
+
+
+
+
+
+
+## Data types: 
+R can think about data in a few different ways. Here are some examples: 
+
+- Numeric: Default type for numbers (whole numbers and decimals) \
+- Integer: Whole numbers only \
+- Logical: TRUE or FALSE values. \
+- Character: Used for text data, or strings, and is denoted by surrounding quotation marks (e.g., "hello"). \
+- Factor: While often considered a data structure for categorical variables (like "low", "medium", "high"), it is a special type of character vector with defined levels. \
+
+
+It is important that you don't have data as the wrong type. To check the type you can use class(). We can change data types using the as.numeric() or as.character() functions. 
+```{r}
+# Class let's you check the data type
+class(odd_number)
+
+# Changing datatype 
+odd <- as.integer(odd_number)
+
+# Somethings can be done
+odd <- as.character(odd_number)
+
+
+# Somethings cannot 
+color <- as.numeric(color)
+```
+
+All of these are examples of functions.
+
+
+
+
+All we do in statistical coding is look at variables (generally data) and performing functions on those variables!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Installing Packages 
+
+A package is essentially a group of functions that we add to our toolbox. 
+
+We install packages so that we can access different functions. There are some default functions that R - these are called **base** R functions. Examples are `print()` and `mean()` from above. There are some packages that are very widely used, for example the **tidyverse**. We will rely on the tidyverse quite a bit in our work. (https://tidyverse.tidyverse.org/)
+
+Installing a package
+
+```{r}
+# generally we do not include an install.packages() command in a Rmd file. 
+# We would run this in the console.
+#install.packages("tidyverse")
+
+```
+
+Accessing a package let's us use the functions from that package in our *current* .Rmd file. We don't always have access to all packages by default. We use the `library()` function to access the package. 
+
+
+```{r}
+# Access tidyverse functions within this .Rmd file.
+library(tidyverse)
+# library()
+```
+
+
+Usually the FIRST code in a file is the library imports because order matters! 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Example of a random package
+
+Anybody can write a package if they want to, so there are so pretty funky packages out there! 
+
+```{r}
+#install.packages("cowsay")
+library(cowsay)
+cow <- animal_fetch('cow')
+cat(cow)
+
+
+pig <- animal_fetch("pig")
+cat(pig)
+```
+
+More info about cowsay: https://cran.r-project.org/web/packages/cowsay/vignettes/cowsay.html
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Loading in the Data 
+
+Reminder: You can think about your computer as a building and your working directory as a room within that building. You need to make sure that everything you need is in  the right room (or you know the way to that room using a file path (e.g. "/Documents/Project/data")). 
+
+Whenever R wants to access something it, by default, looks at the `working directory` (where your project is). Our example data file is called *airfare.csv*. I have stored it in a `data` folder within my project - this is generally good practice and I would recommend doing so. 
+
+I need to use the *relative* file path:  *"data/airfare.csv"*.
+
+To do the actual data read in, we use the `read_csv()` function call. 
+
+```{r}
+# Read in the data and assign to a variable
+airfare <- read.csv("data/airfare.csv")
+
+# Does NOT work 
+#airfare <- read.csv("airfare.csv")
+
+# Look at the first 5 rows of your data - get to see columns (or variables)
+head(airfare) 
+
+
+# Look at a summary of the columns in the data set.
+summary(airfare)
+```
+
+
+The data is now in a data frame (this is the type of way of storing the data). Remember it is like a list of lists so we can work with the data!
+
+
+Note: Different data can be saved within different file types. This just means that the data is stored in different ways. For example we can have a `.csv`, `.tsv`, `.dat`, `.txt` ending to our file names. These all mean that the data is saved in a different way - it is similar to the difference between a `.pdf` and `.doc` file - these are different ways of storing information. `.csv` means "comma separated value". 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Getting started with Analyzing the Airfare data set
+
+Base R functions:  
+
+```{r}
+# Look at the number of rows in the data set 
+nrow(airfare)
+
+# Look at the names of the columns (variables) in the data set 
+colnames(airfare)
+```
+
+Looking at specific columns in the data set:
+
+```{r, eval=FALSE}
+# We can look at one specific column of the data set with the $ symbol
+airfare$year
+```
+
+How many years are there in the data set? What are they?
+
+```{r}
+# Find unique years 
+unique(airfare$year)
+
+# table of years - gives us number of appearances of each unique year
+table(airfare$year)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+More summary statistics!
+
+```{r}
+# Mean of distance 
+mean(airfare$dist)
+
+# Standard deviation of fare
+sd(airfare$fare)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Getting started with the Tidyverse: 
+
+We will be using the tidyverse `pipe` operator to do analysis of our data. The symbol `%>%` lets us do functions to the data. 
+
+```{r, eval=FALSE}
+# Above we did (using Base R)
+airfare$year
+
+# Using the Tidyverse "pipe" we can do this: 
+airfare %>% select(year)
+
+# Have these two done the same thing? 
+```
+
+
+Let's look at the data for only one year:
+
+```{r, eval=FALSE}
+# filter lets us pick rows based on a condition
+airfare %>% filter(year == 1997)
+
+# What happens when we look at data that doesn't exist?
+airfare %>% filter(year == 2009)
+
+# As a note we can put multiple conditions into the filter() function
+airfare %>% filter(year == 1997, fare > 30)
+```
+
+
+The tidyverse is *very* useful because we can make a "chain" of operations, so that we can get the specific data we want.
+
+```{r, eval=FALSE}
+# Get only distance data from 1997
+airfare %>% filter(year == 1997) %>% select(dist)
+
+# Gets the mean distance for the year 1997
+airfare %>% filter(year == 1997) %>% summarize(mean_distance = mean(dist))
+
+```
+
+
+We just did one year of the data, what if we wanted to get the mean for all of the years in the data set? This is where group_by() comes in! 
+
+```{r, eval=FALSE}
+# Group by "thinks" in groups.
+airfare %>% group_by(year) %>% summarize(mean_dist = mean(dist))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Summary Statistics for each year for dist, pair and pass.
+
+When things get more complicated the tidyverse makes interpretation much easier to get exactly what you want!
+
+```{r}
+
+# Base R summary() function - this does not have standard deviations!
+summary(airfare)
+
+
+# Uses tidyverse pipe to make these summary statistics
+airfare %>%
+  group_by(year) %>%
+  summarize(
+    mean_dist = mean(dist),
+    total_fare = sum(fare),
+    mean_passen = mean(passen), 
+    sd_dist = sd(dist)
+    # Add other variables/stats as needed
+  )
+
+```
+
+
+
+How correlated are the variables dist, fare and passen? Using the cor() function and data altered using the tidyverse.
+
+```{r}
+# can "select" multiple columns
+#airfare %>% select(dist, fare, passen)
+
+# Look at how correlated the three selected columns are using the cor() function
+cor(airfare %>% select(dist, fare, passen))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+Tidyverse pipe functions: \
+- `select()` - get the *columns* you want (year, dist etc) \
+- `filter()` - get the *rows* you want (e.g. a specific year) \
+- `mutate()` (when you want to alter data but do not want to aggregate it) \
+- `summarize()` (when you want to summarize data (so alter and aggregate) - used with `group_by()` \
+- `group_by()` - when you want to *think* in terms of groups within a column (e.g. thinking about means across years) \
+
+
+There are a lot of tidyverse functions but these will get you very far!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Making Plots Using the Tidyverse - ggplot
+
+The Tidyverse contains a lot of different packages, you get a lot of functionality by downloading it. The main package used for data visualization is called `ggplot`. 
+
+Plots using ggplot are similar to the way we manipulate data with the tidyverse, we can think of a "chain" of operations that let us see the plot. We explicitly use the `ggplot()` function to declare that we want to make a plot.
+
+```{r}
+ggplot(data=airfare, aes(x=fare)) + # This is where you declare the data and what you want on the x axis
+  geom_histogram() + # This is where you declare that the kind of plot you want is a histogram
+  labs() # This is where you add the labels to your plot.
+
+```
+
+
+```{r}
+# Histogram
+ggplot(data=airfare, aes(x=fare)) + 
+  geom_histogram() +
+  labs(x="Fare", y="Count", title="Histogram of Fares")
+
+ggplot(data=airfare, aes(x=dist)) + geom_histogram() +
+  labs(x="Distance", y="Count", title="Histogram of Distances")
+
+```
+
+
+Use the `Export` button to save the plot as a file, if you want to access it for your report. 
+
+
+What if we wanted to look at the distribution but only for one year? 
+
+```{r}
+#ggplot(data=, aes()) + 
+#  geom_histogram() +
+#  labs(x="Fare", y="Count", title="Histogram of Fares in 1997")
+
+```
+
+
+
+If we want to do a scatterplot we follow similar logic but we use the `geom_point()` function instead! 
+```{r}
+ggplot(data=airfare, aes(x=dist, y=fare)) + geom_point() + labs(x="Distance Travelled", y="Fare", title = "Scatterplot")
+```
+
+
+ggplot can make really complex and interesting plots, so it is a great tool to learn!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Statistical Analysis 
+
+
+Are the fares in the earlier and later years different? Are there statistically significant differences the means between these years? We use the `t.test()` function (and can use it with the pipe!)
+
+```{r}
+# Doing a t-test on our data (comparing the fares data for the two years)
+airfare %>%
+  filter(year %in% c(1997, 2000)) %>%
+  t.test(fare ~ year, data = .)
+
+```
+
+
+Are distances in the earlier and later years different? Are there statistically significant differences in the means between these years?
+
+```{r}
+
+# Same code as above, but we look at distance instead 
+airfare %>%
+  filter(year %in% c(1997, 2000)) %>%
+  t.test(dist ~ year, data = .)
+
+
+```
+
+
+Run a regression - we use the `lm()` function.
+
+```{r}
+# Simple linear regression 
+fit1 <- lm(fare ~ dist, data=airfare)
+
+# Multiple linear regression (for multiple variables)
+fit2 <- lm(fare ~ dist + year + passen, data=airfare)
+
+```
+
+
+
